@@ -1,0 +1,13 @@
+[project]
+name = "g-sia"
+version = "0.1.0"
+description = "GovAI Secure Intelligence Assistant"
+dependencies = [
+    "pandas",
+    "python-dotenv",
+    "psycopg2-binary",
+    "sqlalchemy",
+]
+
+[tool.uv]
+# uv-specific configuration can be added here.
