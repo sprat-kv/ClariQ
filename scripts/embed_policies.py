@@ -1,64 +1,90 @@
 
 import os
+import sys
+from pathlib import Path
 from dotenv import load_dotenv
+
+# Add src directory to path for imports
+sys.path.append(str(Path(__file__).parent.parent / "src"))
+
+from g_sia.core.graph_rag import PolicyGraphRAG
 
 load_dotenv()
 
 def embed_and_store_policies():
     """
-    Orchestrates the process of embedding policy documents and storing them.
-
-    This script will perform the following steps:
-    1.  Load policy documents from the `policy_corpus/` directory.
-    2.  Use a text splitter (e.g., `RecursiveCharacterTextSplitter`) to break
-        documents into manageable chunks for embedding.
-    3.  Configure an embedding model client (e.g., `AzureOpenAIEmbeddings`).
-    4.  Configure a vector store client (e.g., `AzureSearch`).
-    5.  Generate embeddings for each text chunk.
-    6.  Index the chunks and their corresponding embeddings in the vector store.
-    """
-    print("Starting the policy embedding process...")
+    Build Graph RAG system for policy documents.
     
-    policy_dir = 'policy_corpus'
-    if not os.path.exists(policy_dir):
+    This implementation uses a hybrid approach:
+    1. Extract entities and relationships from policy PDFs to build a knowledge graph
+    2. Create vector embeddings for semantic similarity search
+    3. Combine graph traversal with vector search for comprehensive retrieval
+    """
+    print("Starting Graph RAG policy embedding process...")
+    
+    # Get paths
+    script_dir = Path(__file__).parent
+    project_root = script_dir.parent
+    policy_dir = project_root / "policy_corpus"
+    data_dir = project_root / "data"
+    
+    # Check if policy directory exists
+    if not policy_dir.exists():
         print(f"Error: Directory '{policy_dir}' not found.")
         return
-
-    # --- Placeholder for future implementation ---
     
-    # 1. Load documents
-    # Example: from langchain_community.document_loaders import DirectoryLoader
-    # loader = DirectoryLoader(policy_dir, glob="**/*.md", show_progress=True)
-    # docs = loader.load()
-    print(f"1. [TODO] Load documents from '{policy_dir}'")
-
-    # 2. Split documents into chunks
-    # Example: from langchain.text_splitter import RecursiveCharacterTextSplitter
-    # text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    # splits = text_splitter.split_documents(docs)
-    print("2. [TODO] Split documents into chunks")
-
-    # 3. Configure embedding model
-    # Example: from langchain_openai import AzureOpenAIEmbeddings
-    # embeddings = AzureOpenAIEmbeddings(azure_deployment="your-embedding-model")
-    print("3. [TODO] Configure embedding model")
-
-    # 4. Configure vector store
-    # Example: from langchain_community.vectorstores import AzureSearch
-    # vector_store_address = os.getenv("AZURE_SEARCH_ENDPOINT")
-    # vector_store_password = os.getenv("AZURE_SEARCH_ADMIN_KEY")
-    # index_name = "policy-index"
-    # vector_store = AzureSearch(...)
-    print("4. [TODO] Configure vector store")
-
-    # 5. Add documents to the vector store
-    # Example: vector_store.add_documents(documents=splits)
-    print("5. [TODO] Embed and index documents in the vector store")
+    # Check if we have any policy files
+    policy_files = list(policy_dir.glob("*.pdf")) + list(policy_dir.glob("*.md"))
+    if not policy_files:
+        print(f"Error: No policy files found in '{policy_dir}'")
+        return
     
-    # --- End of Placeholder ---
-
-    print("\nPolicy embedding script placeholder executed.")
-    print("Next steps will involve uncommenting and implementing the logic above.")
+    print(f"Found {len(policy_files)} policy files:")
+    for file in policy_files:
+        print(f"  - {file.name}")
+    
+    try:
+        # Initialize Graph RAG system
+        print("\nInitializing Graph RAG system...")
+        graph_rag = PolicyGraphRAG(
+            policy_dir=str(policy_dir),
+            data_dir=str(data_dir)
+        )
+        
+        # Build the complete system
+        print("Building Graph RAG system...")
+        graph_rag.build_complete_system(rebuild=True)
+        
+        # Test the system
+        print("\nTesting the Graph RAG system...")
+        test_queries = [
+            "What are the requirements for patient data access?",
+            "How should personal data be protected?",
+            "What are the penalties for data breaches?"
+        ]
+        
+        for query in test_queries:
+            print(f"\nQuery: {query}")
+            results = graph_rag.hybrid_retrieve(query, k=3)
+            
+            if results:
+                print(f"Found {len(results)} relevant results:")
+                for i, result in enumerate(results[:2]):  # Show top 2
+                    print(f"  {i+1}. [{result['type']}] Score: {result['score']:.3f}")
+                    content_preview = result['content'][:150].replace('\n', ' ')
+                    print(f"     {content_preview}...")
+            else:
+                print("  No results found.")
+        
+        print("\n✅ Graph RAG system built successfully!")
+        print(f"📊 Knowledge Graph: {graph_rag.knowledge_graph.number_of_nodes()} nodes, {graph_rag.knowledge_graph.number_of_edges()} edges")
+        print(f"🔍 Vector Index: {graph_rag.vector_index.ntotal if graph_rag.vector_index else 0} embeddings")
+        print(f"📁 Data saved to: {data_dir}")
+        
+    except Exception as e:
+        print(f"❌ Error building Graph RAG system: {e}")
+        import traceback
+        traceback.print_exc()
 
 
 if __name__ == "__main__":

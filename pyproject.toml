@@ -7,7 +7,36 @@ dependencies = [
     "python-dotenv",
     "psycopg2-binary",
     "sqlalchemy",
+    "langchain>=0.3.27",
+    "langchain-openai>=0.3.29",
+    "langchain-community>=0.3.27",
+    "faiss-cpu>=1.11.0.post1",
+    "neo4j>=5.28.2",
+    "langchain-neo4j>=0.5.0",
+    "py2neo>=2021.2.4",
+    "pypdf2>=3.0.1",
+    "pytesseract>=0.3.13",
+    "pdf2image>=1.17.0",
+    "pillow>=11.3.0",
+    "easyocr>=1.7.2",
+    "transformers>=4.55.2",
+    "accelerate>=1.10.0",
+    "jupyter>=1.1.1",
+    "ipykernel>=6.30.1",
+    "matplotlib>=3.10.5",
+    "torch==2.6.0",
+    "torchvision==0.21.0",
+    "torchaudio==2.6.0",
+    "bitsandbytes>=0.47.0",
+    "gradio-client>=1.11.1",
+    "langextract>=1.0.8",
+    "qdrant-client>=1.15.1",
 ]
 
 [tool.uv]
 # uv-specific configuration can be added here.
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
