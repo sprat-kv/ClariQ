@@ -127,14 +127,14 @@ GovAI Secure Intelligence Assistant (G-SIA) is a compliance-aware AI chatbot tha
 
 ## Tech Stack
 
-* **LLM**: Azure OpenAI GPT-4o
-* **RAG**: Azure Cognitive Search + LangChain Retriever
+* **LLM**: OpenAI models
+* **RAG**: (Any vector database) + LangChain Retriever
 * **Agents**: LangChain + LangGraph for orchestration
 * **Observability**: LangSmith
 * **Database**: PostgreSQL
 * **Backend**: FastAPI
-* **Security**: Azure Key Vault, RBAC, TLS, PII masking
-* **Logging**: Azure Monitor + SIEM
+* **Security**: RBAC, TLS, PII masking
+* **Logging**: SIEM
 
 ## Project Structure
 
