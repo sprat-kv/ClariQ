@@ -175,7 +175,7 @@ class DatabaseManager:
             logger.error(f"Failed to get table information: {e}")
             return {}
     
-    def execute_safe_query(self, query: str, params: Optional[Dict] = None) -> Dict[str, Any]:
+    def execute_safe_query(self, query: str, params: Optional[Any] = None) -> Dict[str, Any]:
         """
         Execute a query safely with proper error handling.
         
