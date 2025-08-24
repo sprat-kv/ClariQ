@@ -1,5 +1,7 @@
 /synthea_sample_data_csv_nov2021
 /synthea_sample_data_csv_nov2021/*
+/data
+/data/*
 /uv.lock
 .env
 .venv
