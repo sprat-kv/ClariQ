@@ -39,7 +39,7 @@ class PolicyAgent:
         collection_name: str = "policy_documents",
         qdrant_url: str = "http://localhost:6333",
         qdrant_api_key: Optional[str] = None,
-        model: str = "gpt-4",
+        model: str = "gpt-4.1",
         temperature: float = 0.0
     ):
         """
@@ -87,15 +87,28 @@ RELEVANT POLICY CONTEXT:
 Based on the policy context provided, classify this query into one of three categories:
 
 1. **ALLOW**: The query is fully compliant and can be processed without modification
-2. **REWRITE**: The query has compliance issues but can be modified to be compliant  
-3. **BLOCK**: The query violates regulations and must be completely denied
+   - Uses aggregated data (counts, averages, statistics)
+   - No personally identifiable information requested
+   - Complies with minimum necessary principle
 
-Consider these key factors in your analysis:
-- Does the query request personally identifiable information (PII)?
-- Are there legitimate business or healthcare reasons for the request?
-- Can the query be answered with aggregated or de-identified data?
-- Does the query comply with minimum necessary standards?
-- Are there specific consent or authorization requirements?
+2. **REWRITE**: The query has compliance issues but can be modified to be compliant
+   - Requests individual records but could be aggregated
+   - Asks for specific patients but could be answered with statistics
+   - Contains some PII but has legitimate analytical purpose
+   - Can be modified to preserve analytical value while ensuring compliance
+
+3. **BLOCK**: The query violates regulations and must be completely denied
+   - Explicitly requests sensitive PII (SSN, full names, addresses)
+   - No legitimate business or healthcare justification
+   - Cannot be reasonably modified to be compliant
+   - Poses high risk of privacy violation
+
+DECISION GUIDELINES:
+- PREFER REWRITE over BLOCK when the query has analytical value
+- Individual patient listings should be REWRITE (convert to aggregated statistics)
+- Demographic analysis requests should usually be ALLOW or REWRITE
+- Only BLOCK when there's explicit PII request with no analytical purpose
+- Consider whether the underlying question can be answered compliantly
 
 Return your analysis as a JSON object with the following structure:
 {{
