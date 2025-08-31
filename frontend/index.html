@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G-SIA - GovAI Secure Intelligence Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>G-SIA</h1>
+                </div>
+                <div class="header-info">
+                    <span class="version">v0.1.0</span>
+                    <div class="status-indicator" id="statusIndicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Connecting...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Chat Container -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2>Secure AI Assistant</h2>
+                    <p>Ask questions about patient data with compliance-aware AI</p>
+                </div>
+
+                <!-- Chat Messages -->
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message system-message">
+                        <div class="message-content">
+                            <i class="fas fa-robot"></i>
+                            <div class="message-text">
+                                <p>Hello! I'm G-SIA, your secure AI assistant. I can help you analyze patient data while ensuring compliance with HIPAA, GDPR, and CCPA regulations.</p>
+                                <p>Try asking questions like:</p>
+                                <ul>
+                                    <li>"How many patients have diabetes?"</li>
+                                    <li>"What's the average age of patients in Denver?"</li>
+                                    <li>"Show me patient demographics by gender"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="chat-input-container">
+                    <form id="chatForm" class="chat-form">
+                        <div class="input-wrapper">
+                            <textarea 
+                                id="messageInput" 
+                                placeholder="Ask a question about patient data..."
+                                rows="1"
+                                maxlength="1000"
+                            ></textarea>
+                            <button type="submit" id="sendButton" class="send-button">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div class="input-footer">
+                            <span class="char-count" id="charCount">0/1000</span>
+                            <span class="compliance-note">
+                                <i class="fas fa-shield-check"></i>
+                                All queries are validated for compliance
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>System Status</h3>
+                    <div class="status-cards">
+                        <div class="status-card" id="systemStatusCard">
+                            <div class="status-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="status-info">
+                                <span class="status-label">System</span>
+                                <span class="status-value">Checking...</span>
+                            </div>
+                        </div>
+                        <div class="status-card" id="databaseStatusCard">
+                            <div class="status-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="status-info">
+                                <span class="status-label">Database</span>
+                                <span class="status-value">Checking...</span>
+                            </div>
+                        </div>
+                        <div class="status-card" id="aiStatusCard">
+                            <div class="status-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="status-info">
+                                <span class="status-label">AI Agents</span>
+                                <span class="status-value">Checking...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Recent Queries</h3>
+                    <div class="recent-queries" id="recentQueries">
+                        <p class="no-queries">No queries yet</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Compliance Stats</h3>
+                    <div class="compliance-stats" id="complianceStats">
+                        <div class="stat-item">
+                            <span class="stat-label">Allowed</span>
+                            <span class="stat-value" id="allowedCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Rewritten</span>
+                            <span class="stat-value" id="rewrittenCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Blocked</span>
+                            <span class="stat-value" id="blockedCount">0</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>Processing your query...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
