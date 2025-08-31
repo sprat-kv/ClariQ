@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G-SIA Frontend Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .demo-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .demo-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .demo-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+        
+        .demo-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .demo-btn.secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+        
+        .demo-btn.secondary:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Demo Header -->
+        <header class="demo-header">
+            <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+                <i class="fas fa-shield-alt"></i>
+                <h1>G-SIA Frontend Demo</h1>
+            </div>
+            <p style="color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+                Experience the GovAI Secure Intelligence Assistant with this interactive demo. 
+                See how compliance-aware AI protects patient data while providing valuable insights.
+            </p>
+        </header>
+
+        <!-- Demo Content -->
+        <main class="demo-content">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3><i class="fas fa-comments"></i> Chat Interface</h3>
+                    <p>Natural language queries with real-time AI responses. The interface automatically handles compliance validation and provides clear status indicators.</p>
+                    <ul style="margin-top: 1rem; color: #666;">
+                        <li>Auto-expanding text input</li>
+                        <li>Character count and validation</li>
+                        <li>Message history with avatars</li>
+                        <li>Loading states and error handling</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3><i class="fas fa-shield-check"></i> Compliance Visualization</h3>
+                    <p>Clear visual indicators show whether queries are allowed, rewritten for compliance, or blocked due to policy violations.</p>
+                    <ul style="margin-top: 1rem; color: #666;">
+                        <li>Color-coded status badges</li>
+                        <li>Policy reasoning display</li>
+                        <li>Query modification explanations</li>
+                        <li>Regulation compliance tracking</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3><i class="fas fa-chart-line"></i> System Monitoring</h3>
+                    <p>Real-time dashboard showing system health, database status, AI agent availability, and compliance statistics.</p>
+                    <ul style="margin-top: 1rem; color: #666;">
+                        <li>Health check monitoring</li>
+                        <li>Component status tracking</li>
+                        <li>Compliance decision stats</li>
+                        <li>Recent query history</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3><i class="fas fa-mobile-alt"></i> Responsive Design</h3>
+                    <p>Modern, mobile-first design that works seamlessly across all devices with smooth animations and professional styling.</p>
+                    <ul style="margin-top: 1rem; color: #666;">
+                        <li>Mobile-optimized layout</li>
+                        <li>Glassmorphism effects</li>
+                        <li>Smooth transitions</li>
+                        <li>Touch-friendly interface</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="demo-buttons">
+                <button class="demo-btn" onclick="openMainInterface()">
+                    <i class="fas fa-rocket"></i>
+                    Launch Full Interface
+                </button>
+                <button class="demo-btn secondary" onclick="showDemoQueries()">
+                    <i class="fas fa-lightbulb"></i>
+                    View Demo Queries
+                </button>
+                <button class="demo-btn secondary" onclick="showFeatures()">
+                    <i class="fas fa-info-circle"></i>
+                    Learn More
+                </button>
+            </div>
+
+            <!-- Demo Queries Section -->
+            <div id="demoQueries" style="display: none; margin-top: 3rem;">
+                <div class="feature-card">
+                    <h3><i class="fas fa-question-circle"></i> Try These Demo Queries</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border-left: 4px solid #10b981;">
+                            <strong style="color: #059669;">✅ ALLOWED</strong>
+                            <p style="margin: 0.5rem 0; color: #333;">"How many patients have diabetes?"</p>
+                            <small style="color: #666;">Aggregated data query - compliant</small>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(245, 158, 11, 0.1); border-radius: 8px; border-left: 4px solid #f59e0b;">
+                            <strong style="color: #d97706;">⚠️ REWRITTEN</strong>
+                            <p style="margin: 0.5rem 0; color: #333;">"List patients by age"</p>
+                            <small style="color: #666;">Modified to aggregated format</small>
+                        </div>
+                        <div style="padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border-left: 4px solid #ef4444;">
+                            <strong style="color: #dc2626;">❌ BLOCKED</strong>
+                            <p style="margin: 0.5rem 0; color: #333;">"Show me patient names"</p>
+                            <small style="color: #666;">PII violation - blocked</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div id="features" style="display: none; margin-top: 3rem;">
+                <div class="feature-card">
+                    <h3><i class="fas fa-cogs"></i> Technical Features</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div style="text-align: center; padding: 1rem;">
+                            <i class="fas fa-code" style="font-size: 2rem; color: #667eea; margin-bottom: 0.5rem;"></i>
+                            <p style="margin: 0; font-weight: 500;">Pure HTML/CSS/JS</p>
+                            <small style="color: #666;">No build tools required</small>
+                        </div>
+                        <div style="text-align: center; padding: 1rem;">
+                            <i class="fas fa-plug" style="font-size: 2rem; color: #667eea; margin-bottom: 0.5rem;"></i>
+                            <p style="margin: 0; font-weight: 500;">RESTful API</p>
+                            <small style="color: #666;">FastAPI integration</small>
+                        </div>
+                        <div style="text-align: center; padding: 1rem;">
+                            <i class="fas fa-mobile" style="font-size: 2rem; color: #667eea; margin-bottom: 0.5rem;"></i>
+                            <p style="margin: 0; font-weight: 500;">Responsive</p>
+                            <small style="color: #666;">Mobile-first design</small>
+                        </div>
+                        <div style="text-align: center; padding: 1rem;">
+                            <i class="fas fa-palette" style="font-size: 2rem; color: #667eea; margin-bottom: 0.5rem;"></i>
+                            <p style="margin: 0; font-weight: 500;">Customizable</p>
+                            <small style="color: #666;">Easy theming</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function openMainInterface() {
+            window.open('index.html', '_blank');
+        }
+
+        function showDemoQueries() {
+            const demoQueries = document.getElementById('demoQueries');
+            const features = document.getElementById('features');
+            
+            if (demoQueries.style.display === 'none') {
+                demoQueries.style.display = 'block';
+                features.style.display = 'none';
+            } else {
+                demoQueries.style.display = 'none';
+            }
+        }
+
+        function showFeatures() {
+            const demoQueries = document.getElementById('demoQueries');
+            const features = document.getElementById('features');
+            
+            if (features.style.display === 'none') {
+                features.style.display = 'block';
+                demoQueries.style.display = 'none';
+            } else {
+                features.style.display = 'none';
+            }
+        }
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                    this.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
